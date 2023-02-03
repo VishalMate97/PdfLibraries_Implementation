@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.model.requestParam;
 
+import ch.qos.logback.core.pattern.parser.Parser;
+
 @RestController
 public class PdfBoxController {
 
@@ -83,5 +85,68 @@ public class PdfBoxController {
 			return "Unable to save Edited PDF";
 		}
 		return "Edited PDF is saved";
+	}
+	
+	@GetMapping("/editExistingPdfAddMultipleLines")
+	@ResponseBody
+	public String editExistingPdfAddMultipleLinesAPI(@RequestBody requestParam param) {
+		PDDocument doc;
+		try {
+			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
+//			doc.addPage(new PDPage()); // make changes into that existing pdf, here we are adding pages 
+			
+			PDPage p1 = doc.getPage(1);
+			PDPageContentStream contentStream = new PDPageContentStream(doc, p1);
+			contentStream.beginText();
+			contentStream.setLeading(19.5f);
+			contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
+			contentStream.newLineAtOffset(20, 450);
+			String text1 = "We Are Inside PDF From PDFBOX API editExistingPdf";
+			String text2 = "We Are Inside PDF From PDFBOX API editExistingPdf";
+			String text3 = "We Are Inside PDF From PDFBOX API editExistingPdf";
+			
+			contentStream.showText(text1);
+			contentStream.newLine();
+			contentStream.showText(text2);
+			contentStream.newLine();
+			contentStream.showText(text3);
+			
+			contentStream.endText();
+			contentStream.close();
+			
+			doc.save(param.getPath1());
+			doc.close();
+		} catch (Exception | Error ex) {
+			ex.printStackTrace();
+			return "Unable to save Edited PDF";
+		}
+		return "Edited PDF is saved";
+	}
+	
+	@GetMapping("/removeExistingPage")
+	@ResponseBody
+	public String removeExistingPageAPI(@RequestBody requestParam param) {
+		PDDocument doc;
+		String message = "";
+		try {
+			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
+			int pageIndex = param.getPageIndex();
+			
+			// will remove only when that page is exists
+			if(doc.getNumberOfPages() >= pageIndex+1) {
+				doc.removePage(pageIndex);
+				message = "Page Number : " +  Integer.sum(pageIndex, 1) + " is removed ";
+			}
+			else {
+				message = "Unable to remove Page Number : " +   Integer.sum(pageIndex, 1);
+			}
+			
+			doc.save(param.getPath1());
+			doc.close();
+		} catch (Exception | Error ex) {
+			ex.printStackTrace();
+			return "Not worked";
+		}
+		return message;
 	}
 }

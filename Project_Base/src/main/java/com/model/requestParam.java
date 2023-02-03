@@ -7,6 +7,8 @@ public class requestParam {
 	private String path1;
 
 	private String path2;
+	
+	private int pageIndex;
 
 	public String getPath() {
 		return path;
@@ -30,6 +32,14 @@ public class requestParam {
 
 	public void setPath2(String path2) {
 		this.path2 = path2;
+	}
+
+	public int getPageIndex() {
+		return pageIndex;
+	}
+
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 	
 }
