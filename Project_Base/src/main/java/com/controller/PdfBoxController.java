@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
@@ -95,12 +96,12 @@ public class PdfBoxController {
 			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
 //			doc.addPage(new PDPage()); // make changes into that existing pdf, here we are adding pages 
 			
-			PDPage p1 = doc.getPage(1);
+			PDPage p1 = doc.getPage(0);
 			PDPageContentStream contentStream = new PDPageContentStream(doc, p1);
 			contentStream.beginText();
 			contentStream.setLeading(19.5f);
 			contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
-			contentStream.newLineAtOffset(20, 450);
+			contentStream.newLineAtOffset(40, 750);
 			String text1 = "We Are Inside PDF From PDFBOX API editExistingPdf";
 			String text2 = "We Are Inside PDF From PDFBOX API editExistingPdf";
 			String text3 = "We Are Inside PDF From PDFBOX API editExistingPdf";
@@ -148,5 +149,98 @@ public class PdfBoxController {
 			return "Not worked";
 		}
 		return message;
+	}
+	
+
+
+	@GetMapping("/AddRectangleInPdfPage")
+	@ResponseBody
+	public String addRectangleInPdfPageAPI(@RequestBody requestParam param) throws IOException {
+	
+		PDDocument doc = new PDDocument();
+		PDPage page1 = new PDPage(); 
+		doc.addPage(page1);
+		
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page1);
+		
+
+//		contentStream.setLeading(19.5f);
+		
+		contentStream.setStrokingColor(Color.DARK_GRAY);
+//		contentStream.setLineWidth(1);
+		contentStream.addRect(50, 50, 150, 150);
+		contentStream.stroke();
+		
+		
+		contentStream.setStrokingColor(Color.red);
+//		contentStream.setLineWidth(1);
+		contentStream.addRect(50+150, 50+150, 150, 150);
+		contentStream.stroke();
+		
+		contentStream.setStrokingColor(Color.blue);
+//		contentStream.setLineWidth(1);
+		contentStream.addRect(50+150+150, 50+150+150, 150, 150);
+		contentStream.stroke();
+		
+		contentStream.close();
+		
+		doc.save(new File("src/main/resources/document/myfilenew3.pdf"));
+		doc.close();
+		
+		return "worked";
+		
+	}
+	
+	@GetMapping("/AddTableInPdfPage")
+	@ResponseBody
+	public String addTableInPdfPageAPI(@RequestBody requestParam param) throws IOException {
+	
+		PDDocument doc = new PDDocument();
+		PDPage page1 = new PDPage(); 
+		doc.addPage(page1);
+		
+		
+		int pageHieght = (int) page1.getTrimBox().getHeight();
+		int pageWidth = (int) page1.getTrimBox().getWidth();
+		
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page1);
+		
+		contentStream.setStrokingColor(Color.DARK_GRAY);
+		contentStream.setLineWidth(1);
+		
+		
+		int initX = 50;
+		int initY = pageHieght-50;
+		int cellHieght = 30;
+		int cellWidth = 100;
+		
+		int countCol = 5;
+		int coutRow = 7;
+		
+		for(int i = 0; i<coutRow;i++) {
+			for(int j = 0; j< countCol; j++) {
+				contentStream.addRect(initX, initY, cellWidth, -cellHieght);
+				
+				contentStream.beginText();
+				contentStream.newLineAtOffset(initX +10, initY - cellHieght + 10);
+				contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
+				contentStream.showText("hello");
+				contentStream.endText();
+				
+				
+				initX += cellWidth;
+			}
+			initX = 50;
+			initY -=  cellHieght;
+		}
+		
+		contentStream.stroke();
+		contentStream.close();
+		
+		doc.save(new File("src/main/resources/document/myfilenew4.pdf"));
+		doc.close();
+		
+		return "worked";
+		
 	}
 }
