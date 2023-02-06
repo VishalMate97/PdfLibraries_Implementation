@@ -3,6 +3,10 @@ package com.controller;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -180,8 +184,8 @@ public class PdfBoxController {
 		contentStream.setStrokingColor(Color.blue);
 //		contentStream.setLineWidth(1);
 		contentStream.addRect(50+150+150, 50+150+150, 150, 150);
-		contentStream.stroke();
 		
+		contentStream.stroke();
 		contentStream.close();
 		
 		doc.save(new File("src/main/resources/document/myfilenew3.pdf"));
@@ -242,5 +246,61 @@ public class PdfBoxController {
 		
 		return "worked";
 		
+	}
+	
+	
+	
+	@GetMapping("/checkingComplexity")
+	@ResponseBody
+	public String checkingComplexityAPI(@RequestBody requestParam param) throws IOException {
+	
+		PDDocument doc = new PDDocument();
+		PDPage page1 = new PDPage(); 
+		doc.addPage(page1);
+		
+		int h = (int) page1.getTrimBox().getHeight();
+		int pageWidth = (int) page1.getTrimBox().getWidth();
+		
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page1);
+		
+		contentStream.setStrokingColor(Color.DARK_GRAY);
+		contentStream.setLineWidth(1);
+		
+		int initX = 50;
+		int initY = h-50;
+		int cellHieght = 30;
+		int cellWidth = 100;
+		
+		int countCol = 5;
+		int sssa = 7;
+		
+		createCellforme(50, h-50, 200, -50, contentStream);
+		createCellforme(250, h-50, 200, -100, contentStream);
+		createCellforme(450, h-50, 100, -100, contentStream);
+		createCellforme(50, h-100, 200, -150, contentStream);
+		createCellforme(250, h-150, 300, -50, contentStream);
+		createCellforme(50, h-250, 200, -50, contentStream);
+		createCellforme(250, h-200, 300, -150, contentStream);
+		createCellforme(50, h-300, 200, -150, contentStream);
+		createCellforme(250, h-350, 300, -100, contentStream);
+		
+		contentStream.stroke();
+		contentStream.close();
+		
+		doc.save(new File("src/main/resources/document/myfilenew4.pdf"));
+		doc.close();
+		
+		return "worked";
+		
+	}
+	
+	public void createCellforme(int initX, int initY, int cellWidth, int cellHieght, PDPageContentStream contentStream) throws IOException {
+		contentStream.addRect(initX, initY, cellWidth, cellHieght);
+		
+		contentStream.beginText();
+		contentStream.newLineAtOffset(initX +10, initY + cellHieght + 10);
+		contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
+		contentStream.showText("hello");
+		contentStream.endText();
 	}
 }
