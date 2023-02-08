@@ -20,6 +20,15 @@ public class ApiController {
 	@ResponseBody
 	public String apachePDFBoxAPI(@RequestBody requestParam params) {
 
+//		RequestBody Example Format
+//		{
+//		    "path":"src/main/resources/document/PDFBOXfile1.pdf",
+//		    "path1":"src/main/resources/document/PDFBOXfile2.pdf",
+//		    "path2":"src/main/resources/document/PDFBOXfile3.pdf",
+//		    "pageIndex":"1",
+//		    "apiNumber":"8"
+//		}
+//		
 		try {
 			switch (params.getApiNumber()) {
 			case 1:
