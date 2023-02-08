@@ -22,9 +22,9 @@ public class PdfBoxServiceImpl implements PdfBoxService {
 
 	public String createAndAddPageInPdfAPI(  requestParam params) {
 //		create new File If doesn't exist or it will replace If exists
-//		String path = "src"+File.separator+"main"+File.separator+"resources"+File.separator+"document"+File.separator+"myfile.pdf";
-//		String path = "src/main/resources/document/myfile.pdf";//create new File If doesn't exist or it will replace If exists
-//		String path = "D:\\Temp\\Documents\\myfile.pdf";
+//		String path = "src"+File.separator+"main"+File.separator+"resources"+File.separator+"document"+File.separator+"PDFBOXfile.pdf";
+//		String path = "src/main/resources/document/PDFBOXfile.pdf";//create new File If doesn't exist or it will replace If exists
+//		String path = "D:\\Temp\\Documents\\PDFBOXfile.pdf";
 		String path = params.getPath();
 		PDDocument doc = new PDDocument();
 		PDPage p1 = new PDPage();
@@ -172,7 +172,7 @@ public class PdfBoxServiceImpl implements PdfBoxService {
 		contentStream.stroke();
 		contentStream.close();
 		
-		doc.save(new File("src/main/resources/document/myfilenew3.pdf"));
+		doc.save(new File("src/main/resources/document/PDFBOXfilenew3.pdf"));
 		doc.close();
 		
 		return "worked";
@@ -224,7 +224,7 @@ public class PdfBoxServiceImpl implements PdfBoxService {
 		contentStream.stroke();
 		contentStream.close();
 		
-		doc.save(new File("src/main/resources/document/myfilenew4.pdf"));
+		doc.save(new File("src/main/resources/document/PDFBOXfilenew4.pdf"));
 		doc.close();
 		
 		return "worked";
@@ -266,7 +266,7 @@ public class PdfBoxServiceImpl implements PdfBoxService {
 		contentStream.stroke();
 		contentStream.close();
 		
-		doc.save(new File("src/main/resources/document/myfilenew4.pdf"));
+		doc.save(new File("src/main/resources/document/PDFBOXnew4.pdf"));
 		doc.close();
 		
 		return "worked";
