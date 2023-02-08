@@ -1,18 +1,51 @@
 package com.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.model.requestParam;
+import com.service.PdfBoxService;
+
 @RestController
 public class ApiController {
 
-	@GetMapping("/firstAPI")
+	@Autowired
+	PdfBoxService PdfBoxService; // Apache PDFBOX
+
+	@GetMapping("/apachePDFBox")
 	@ResponseBody
-	public String firstAPI(@RequestParam String param1, @RequestBody Object reqBody) {
-		return "hello";
+	public String apachePDFBoxAPI(@RequestBody requestParam params) {
+
+		try {
+			switch (params.getApiNumber()) {
+			case 1:
+				return PdfBoxService.createAndAddPageInPdfAPI(params);
+			case 2:
+				return PdfBoxService.loadExistingPdfAPI(params);
+			case 3:
+				return PdfBoxService.editExistingPdfAPI(params);
+			case 4:
+				return PdfBoxService.editExistingPdfAddMultipleLinesAPI(params);
+			case 5:
+				return PdfBoxService.removeExistingPageAPI(params);
+			case 6:
+				return PdfBoxService.addRectangleInPdfPageAPI(params);
+			case 7:
+				return PdfBoxService.addTableInPdfPageAPI(params);
+			case 8:
+				return PdfBoxService.checkingComplexityAPI(params);
+			default:
+				return "please add your valid API Number";
+
+			}
+		} catch (Exception | Error ex) {
+			ex.printStackTrace();
+			return "Something Went Wrong in APINumber : " + params.getApiNumber();
+		}
 	}
 	
 }

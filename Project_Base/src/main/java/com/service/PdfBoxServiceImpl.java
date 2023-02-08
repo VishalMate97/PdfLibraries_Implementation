@@ -1,35 +1,26 @@
-package com.controller;
+package com.service;
 
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.model.requestParam;
 
-import ch.qos.logback.core.pattern.parser.Parser;
+@Service
+public class PdfBoxServiceImpl implements PdfBoxService {
+	
 
-@RestController
-public class PdfBoxController {
 
-	@GetMapping("/addNewPdf")
-	@ResponseBody
-	public String createAndAddPageInPdfAPI(@RequestBody requestParam params) {
-		
+	public String createAndAddPageInPdfAPI(  requestParam params) {
 //		create new File If doesn't exist or it will replace If exists
 //		String path = "src"+File.separator+"main"+File.separator+"resources"+File.separator+"document"+File.separator+"myfile.pdf";
 //		String path = "src/main/resources/document/myfile.pdf";//create new File If doesn't exist or it will replace If exists
@@ -48,10 +39,8 @@ public class PdfBoxController {
 		}
 		return "Empty pdf is saved at " + path;
 	}
-	
-	@GetMapping("/loadExistingPdf")
-	@ResponseBody
-	public String loadExistingPdfAPI(@RequestBody requestParam param) {
+
+	public String loadExistingPdfAPI(  requestParam param) {
 		PDDocument doc;
 		try {
 			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
@@ -65,9 +54,8 @@ public class PdfBoxController {
 		return "Edited PDF is saved";
 	}
 	
-	@GetMapping("/editExistingPdf")
-	@ResponseBody
-	public String editExistingPdfAPI(@RequestBody requestParam param) {
+
+	public String editExistingPdfAPI(  requestParam param) {
 		PDDocument doc;
 		try {
 			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
@@ -91,10 +79,8 @@ public class PdfBoxController {
 		}
 		return "Edited PDF is saved";
 	}
-	
-	@GetMapping("/editExistingPdfAddMultipleLines")
-	@ResponseBody
-	public String editExistingPdfAddMultipleLinesAPI(@RequestBody requestParam param) {
+
+	public String editExistingPdfAddMultipleLinesAPI(  requestParam param) {
 		PDDocument doc;
 		try {
 			doc = PDDocument.load(new File(param.getPath1())); // load Existing PDF file through static load method
@@ -128,9 +114,8 @@ public class PdfBoxController {
 		return "Edited PDF is saved";
 	}
 	
-	@GetMapping("/removeExistingPage")
-	@ResponseBody
-	public String removeExistingPageAPI(@RequestBody requestParam param) {
+
+	public String removeExistingPageAPI(  requestParam param) {
 		PDDocument doc;
 		String message = "";
 		try {
@@ -157,9 +142,8 @@ public class PdfBoxController {
 	
 
 
-	@GetMapping("/AddRectangleInPdfPage")
-	@ResponseBody
-	public String addRectangleInPdfPageAPI(@RequestBody requestParam param) throws IOException {
+
+	public String addRectangleInPdfPageAPI(  requestParam param) throws IOException {
 	
 		PDDocument doc = new PDDocument();
 		PDPage page1 = new PDPage(); 
@@ -195,9 +179,8 @@ public class PdfBoxController {
 		
 	}
 	
-	@GetMapping("/AddTableInPdfPage")
-	@ResponseBody
-	public String addTableInPdfPageAPI(@RequestBody requestParam param) throws IOException {
+
+	public String addTableInPdfPageAPI(  requestParam param) throws IOException {
 	
 		PDDocument doc = new PDDocument();
 		PDPage page1 = new PDPage(); 
@@ -248,11 +231,7 @@ public class PdfBoxController {
 		
 	}
 	
-	
-	
-	@GetMapping("/checkingComplexity")
-	@ResponseBody
-	public String checkingComplexityAPI(@RequestBody requestParam param) throws IOException {
+	public String checkingComplexityAPI(  requestParam param) throws IOException {
 	
 		PDDocument doc = new PDDocument();
 		PDPage page1 = new PDPage(); 
@@ -303,4 +282,5 @@ public class PdfBoxController {
 		contentStream.showText("hello");
 		contentStream.endText();
 	}
+
 }

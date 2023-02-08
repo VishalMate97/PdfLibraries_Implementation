@@ -2,6 +2,8 @@ package com.model;
 
 public class requestParam {
 
+	private int apiNumber;
+	
 	private String path;
 
 	private String path1;
@@ -9,6 +11,16 @@ public class requestParam {
 	private String path2;
 	
 	private int pageIndex;
+	
+
+
+	public int getApiNumber() {
+		return apiNumber;
+	}
+
+	public void setApiNumber(int apiNumber) {
+		this.apiNumber = apiNumber;
+	}
 
 	public String getPath() {
 		return path;
