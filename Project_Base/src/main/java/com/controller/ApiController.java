@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,9 @@ public class ApiController {
 	
 	@Autowired
 	ItextPdfService ItextPdfService; // Itext PDF
+	
+	@Autowired
+	EInvoicePDFImplementationService EInvoicePDFImplementationService; // Itext PDF
 
 	@GetMapping("/apachePDFBox")
 	@ResponseBody
@@ -100,6 +105,22 @@ public class ApiController {
 			ex.printStackTrace();
 			return "Something Went Wrong in APINumber : " + params.getApiNumber();
 		}
+	}
+	
+	@GetMapping("/einvoicePdf")
+	@ResponseBody
+	public String EinvoicePdfAPI(@RequestBody requestParam params) {
+		
+		try {
+			EInvoicePDFImplementationService.createPageWithSize();
+			return "Completed";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "Exception Occur";
+		}
+		
+		
 	}
 	
 }
