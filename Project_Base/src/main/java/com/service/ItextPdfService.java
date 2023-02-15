@@ -1,7 +1,9 @@
 package com.service;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.itextpdf.text.DocumentException;
 import com.model.requestParam;
 
 public interface ItextPdfService {
