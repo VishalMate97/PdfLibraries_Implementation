@@ -7,7 +7,16 @@ public class cellInfo {
 	private float width;
 	private float height;
 	private String cellNo;
+	private float lowestHeight;
 	
+	public float getLowestHeight() {
+		return lowestHeight;
+	}
+
+	public void setLowestHeight(float lowestHeight) {
+		this.lowestHeight = lowestHeight;
+	}
+
 	public cellInfo(float x, float y, float width,  float height, String cellNo) {
 		super();
 		this.x = x;

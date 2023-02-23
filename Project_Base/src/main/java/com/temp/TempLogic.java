@@ -17,7 +17,7 @@ public class TempLogic {
 	public void createNewPdf() throws IOException {
 
 		PDDocument document = new PDDocument();
-		PDRectangle pageSize = new PDRectangle(840, 600);
+		PDRectangle pageSize = new PDRectangle(400, 400);
 		PDPage page = new PDPage(pageSize);
 		document.addPage(page);
 		
@@ -26,21 +26,21 @@ public class TempLogic {
 		float pageHeight = page.getTrimBox().getHeight();
 		float pageWidth = page.getTrimBox().getWidth();
 		
-		float mainPageHeight = pageHeight-70;
-		float mainPageWidth = pageWidth-70;
-		float mainPageInitX = 35;
-		float mainPageInitY = pageHeight - 35;
+		float mainPageHeight = pageHeight-40;
+		float mainPageWidth = pageWidth-40;
+		float mainPageInitX = 20;
+		float mainPageInitY = pageHeight - 20;
 		
-		contentStream.addRect(mainPageInitX, mainPageInitY, mainPageWidth, -mainPageHeight); 
-		contentStream.setStrokingColor(Color.DARK_GRAY);
-		contentStream.setLineWidth(0.5f);
-		contentStream.stroke();
+//		contentStream.addRect(mainPageInitX, mainPageInitY, mainPageWidth, -mainPageHeight); 
+//		contentStream.setStrokingColor(Color.DARK_GRAY);
+//		contentStream.setLineWidth(0.5f);
+//		contentStream.stroke();
 	
 ////		  com.utility.MainTable.MainTable(float initX, float initY, float tblWidth, float tblHeight, float noOfCols, float noOfRows, PDPageContentStream contentStream)
-		MainTable myTable = new MainTable(mainPageInitX, mainPageInitY, mainPageWidth, 250, 5f, 7f, contentStream);
+		MainTable myTable = new MainTable(mainPageInitX, mainPageInitY, mainPageWidth, mainPageHeight, 4f, 7f, contentStream);
 		
 		myTable.drawTable();
-		
+
 		
 		
 		
