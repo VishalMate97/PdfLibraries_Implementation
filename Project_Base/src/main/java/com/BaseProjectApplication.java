@@ -22,12 +22,12 @@ public class BaseProjectApplication {
 		EInvoicePDFImplementationService temp2 = new EInvoicePDFImplementationServiceImpl();
 		tempExamples temp3 = new tempExamples();
 		
-//		temp.createNewPdf();
+		temp.createNewPdf();
 //		temp1.insetts1();
 //		temp1.insetts2();
 //		temp1.createExistingLogic();
 //		temp2.createPageWithSize();
-		temp3.draw1();
+//		temp3.draw1();
 	}
 	
 	
