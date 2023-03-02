@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.service.EInvoicePDFImplementationService;
 import com.service.EInvoicePDFImplementationServiceImpl;
+import com.service.EwayBillService;
+import com.service.EwayBillServiceImpl;
 import com.service.pdfBoxWIthExistingFlowServiceImpl;
 import com.service.tempExamples;
 import com.temp.TempLogic;
@@ -21,13 +23,15 @@ public class BaseProjectApplication {
 		pdfBoxWIthExistingFlowServiceImpl temp1 = new pdfBoxWIthExistingFlowServiceImpl();
 		EInvoicePDFImplementationService temp2 = new EInvoicePDFImplementationServiceImpl();
 		tempExamples temp3 = new tempExamples();
+		EwayBillService temp4 = new EwayBillServiceImpl();
 		
-		temp.createNewPdf();
+//		temp.createNewPdf();
 //		temp1.insetts1();
 //		temp1.insetts2();
 //		temp1.createExistingLogic();
 //		temp2.createPageWithSize();
 //		temp3.draw1();
+		temp4.start();
 	}
 	
 	
