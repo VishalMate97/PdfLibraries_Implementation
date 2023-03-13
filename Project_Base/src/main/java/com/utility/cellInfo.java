@@ -4,6 +4,8 @@ public class cellInfo {
 
 	private float x;
 	private float y;
+	private float cellEndX;
+	private float cellEndY;
 	private float width;
 	private float height;
 	private String cellNo;
@@ -17,13 +19,31 @@ public class cellInfo {
 		this.lowestHeight = lowestHeight;
 	}
 
-	public cellInfo(float x, float y, float width,  float height, String cellNo) {
+	public cellInfo(float x, float y, float width,  float height, String cellNo, float cellEndX, float cellEndY) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 		this.cellNo = cellNo;
+		this.cellEndX = cellEndX;
+		this.cellEndY = cellEndY;
+	}
+
+	public float getCellEndX() {
+		return cellEndX;
+	}
+
+	public void setCellEndX(float cellEndX) {
+		this.cellEndX = cellEndX;
+	}
+
+	public float getCellEndY() {
+		return cellEndY;
+	}
+
+	public void setCellEndY(float cellEndY) {
+		this.cellEndY = cellEndY;
 	}
 
 	public float getX() {

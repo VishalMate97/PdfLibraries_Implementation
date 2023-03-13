@@ -10,6 +10,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.temp.myPdfDynamicLogic;
+
 import java.text.DecimalFormat;
 
 public class MainTable {
@@ -50,9 +52,12 @@ public class MainTable {
 		List<List<cellInfo>> cellDrawList = new ArrayList<List<cellInfo>>();
 
 		List<Map<String, String>> listOfCell = getCellJsonData(JsonFilePath);
+		
+		myPdfDynamicLogic temp = new myPdfDynamicLogic();
 
 		if (listOfCell != null) {
-			cellDrawList = this.calculateCellSeries(listOfCell, initX, initY, tblWidth, tblHeight);
+//			cellDrawList = this.calculateCellSeries(listOfCell, initX, initY, tblWidth, tblHeight);
+			cellDrawList = temp.calculateCellSeries(listOfCell, initX, initY, tblWidth, tblHeight, this.singleColSpan, this.singleRowSpan);
 		} else {
 			System.out.println("can't Draw table");
 		}
@@ -74,7 +79,9 @@ public class MainTable {
 		float cellY = Float.valueOf(df.format(initY));
 		float cellWidth = 0;
 		float cellHeight = 0;
-
+		float cellEndX = 0;
+		float cellEndY = 0;
+		
 		float lowestHeight = 0;
 
 		float endOfX = Float.valueOf(df.format(initX + tblWidth));
@@ -90,15 +97,18 @@ public class MainTable {
 			cellWidth = Float.valueOf(df.format(Float.valueOf(item.get("colSpan")) * this.singleColSpan));
 			cellHeight = Float.valueOf(df.format(Float.valueOf(item.get("rowSpan")) * this.singleRowSpan));
 
+			cellEndX = cellX + cellWidth;
+			cellEndY = cellY - cellHeight;
+			
 			// below if else is --> to decide current cell should be added into this series
 			if (lowestHeight  > cellY - cellHeight 
 					&& (singleSeries.size() != 0 ? (singleSeries.get(0).getY()  <= cellY ) : false)) {
-				cellInfo cellinfo = new cellInfo(cellX, cellY, cellWidth, cellHeight, item.get("cellNo"));
+				cellInfo cellinfo = new cellInfo(cellX, cellY, cellWidth, cellHeight, item.get("cellNo"), cellEndX, cellEndY);
 
 				singleSeries.add(cellinfo);
 			} // allowed when cell height is less/above lowestHeight OR allowed on first time
 			else if (lowestHeight  <= cellY - cellHeight ) {
-				cellInfo cellinfo = new cellInfo(cellX, cellY, cellWidth, cellHeight, item.get("cellNo"));
+				cellInfo cellinfo = new cellInfo(cellX, cellY, cellWidth, cellHeight, item.get("cellNo"), cellEndX, cellEndY);
 
 				singleSeries.add(cellinfo);
 			}

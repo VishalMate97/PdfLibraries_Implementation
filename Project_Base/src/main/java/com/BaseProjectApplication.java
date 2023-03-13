@@ -25,13 +25,13 @@ public class BaseProjectApplication {
 		tempExamples temp3 = new tempExamples();
 		EwayBillService temp4 = new EwayBillServiceImpl();
 		
-//		temp.createNewPdf();
+		temp.createNewPdf();
 //		temp1.insetts1();
 //		temp1.insetts2();
 //		temp1.createExistingLogic();
 //		temp2.createPageWithSize();
 //		temp3.draw1();
-		temp4.start();
+//		temp4.start();
 	}
 	
 	
