@@ -43,7 +43,7 @@ public class EwayBillServiceImpl implements EwayBillService {
 
 		// text Section
 		String text = "Hello All";
-		PDFont font = PDType1Font.TIMES_ROMAN;
+		PDFont font = PDType1Font.HELVETICA_BOLD;
 		float fontSize = 7.5f;
 		float initX = 50;
 		float initY = pageHeight - 50;
@@ -67,20 +67,16 @@ public class EwayBillServiceImpl implements EwayBillService {
 		initX = 100;
 		initY = pageHeight - 150;
 		int noOfRowsPart1 = this.part1.size();
-		updatedTotalHeight = this.createTable(contentStream, initX, initY, part1ColumnWidth, noOfRowsPart1, this.part1, null, false);
+		updatedTotalHeight = this.createTable(contentStream, initX, initY, part1ColumnWidth, noOfRowsPart1, this.part1,
+				null, false);
 
 		initX = 100;
 		initY = (initY - updatedTotalHeight) - 5;
 
-	
 		contentStream.setStrokingColor(Color.gray);
 		contentStream.setLineWidth(2);
 		contentStream.moveTo(initX, initY);
-		contentStream.lineTo(
-				initX + part1ColumnWidth.stream()
-                .mapToInt(columnInfo::getWidth)
-                .sum(), 
-                initY);
+		contentStream.lineTo(initX + part1ColumnWidth.stream().mapToInt(columnInfo::getWidth).sum(), initY);
 		contentStream.stroke();
 
 		initX = 100;
@@ -93,7 +89,8 @@ public class EwayBillServiceImpl implements EwayBillService {
 		initY = initY - 10;
 
 		int noOfRowsPart2A = this.part2A.size();
-		updatedTotalHeight = this.createTable(contentStream, initX, initY, part2AColumnWidth, noOfRowsPart2A, this.part2A, null, false);
+		updatedTotalHeight = this.createTable(contentStream, initX, initY, part2AColumnWidth, noOfRowsPart2A,
+				this.part2A, null, false);
 
 		initX = 100;
 		initY = (initY - updatedTotalHeight) - 5;
@@ -101,11 +98,7 @@ public class EwayBillServiceImpl implements EwayBillService {
 		contentStream.setStrokingColor(Color.gray);
 		contentStream.setLineWidth(2);
 		contentStream.moveTo(initX, initY);
-		contentStream.lineTo(
-				initX + part2AColumnWidth.stream()
-                .mapToInt(columnInfo::getWidth)
-                .sum(), 
-                initY);
+		contentStream.lineTo(initX + part2AColumnWidth.stream().mapToInt(columnInfo::getWidth).sum(), initY);
 		contentStream.stroke();
 
 		initX = 100;
@@ -117,45 +110,45 @@ public class EwayBillServiceImpl implements EwayBillService {
 		initX = 100;
 		initY = initY - 10;
 
-		// total table width  = 527 ,  but as we are giving padding of 10, we need remove it form main width = 507
-		int columnsWidth2[] = { 30, 50,40,76,76,65,65 };
+		// total table width = 527 , but as we are giving padding of 10, we need remove
+		// it form main width = 507
+		int columnsWidth2[] = { 30, 50, 40, 76, 76, 65, 65 };
 		int noOfRowsPart3B = this.part3B.size();
-		updatedTotalHeight = this.createTable(contentStream, initX+5, initY, part3BColumnWidth, noOfRowsPart3B+1, null, this.part3B, true);
+		updatedTotalHeight = this.createTable(contentStream, initX + 5, initY, part3BColumnWidth, noOfRowsPart3B + 1,
+				null, this.part3B, true);
 
 		initX = 100;
 		initY = (initY - updatedTotalHeight) - 20;
-		
-		contentStream.addRect(initX + ((pageWidth - 200) / 2) - 100 / 2, initY, 60, -(30));
+
+		contentStream.addRect(initX + ((pageWidth - 200) / 2) - 60 / 2, initY, 60, -(30));
 		contentStream.setStrokingColor(Color.red);
 		contentStream.setLineWidth(1);
 		contentStream.stroke();
-		
+
 		initX = 100;
 		initY = (initY - 30) - 6;
-		
-		this.createSingleLineText(contentStream, "201304541660", 5, (initX + ((pageWidth - 200) / 2) - 100 / 2) + 10, initY, PDType1Font.HELVETICA, 6f);
-		
+
+		this.createSingleLineText(contentStream, "201304541660", 5, (initX + ((pageWidth - 200) / 2) - 60 / 2) + 10,
+				initY, PDType1Font.HELVETICA, 6f);
+
 		initX = 100;
 		initY = initY - 10;
-		
+
 		contentStream.setStrokingColor(Color.gray);
 		contentStream.setLineWidth(2);
 		contentStream.moveTo(initX, initY);
-		contentStream.lineTo(
-				initX + part2AColumnWidth.stream()
-                .mapToInt(columnInfo::getWidth)
-                .sum(), 
-                initY);
+		contentStream.lineTo(initX + part2AColumnWidth.stream().mapToInt(columnInfo::getWidth).sum(), initY);
 		contentStream.stroke();
-		
+
 		contentStream.close();
 		document.save(new File("src\\\\main\\\\resources\\\\document\\\\EwayBill1.pdf"));
 		document.close();
 
 	}
 
-	public float createTable(PDPageContentStream contentStreamValue, float InitX, float InitY, List<columnInfo> columnsWidth,
-			int noOfRows, List<rowInfo> partNo, List<Map<String, String>> partList, boolean isBOrder) throws IOException {
+	public float createTable(PDPageContentStream contentStreamValue, float InitX, float InitY,
+			List<columnInfo> columnsWidth, int noOfRows, List<rowInfo> partNo, List<Map<String, String>> partList,
+			boolean isBOrder) throws IOException {
 
 		float mainInitX = InitX;
 		float mainInitY = InitY;
@@ -168,7 +161,11 @@ public class EwayBillServiceImpl implements EwayBillService {
 		String text = "";
 //		Set<String> myTextData = partNo.keySet();
 //		List<String> textDataForKeyValueTable = partNo != null ? new ArrayList<String>(partNo.keySet()) : null; // if we get key value pair table 
-		List<String> textDataForProperTable = partList != null ? new ArrayList<String>(partList.get(0).keySet()) : null; // if we want excel table
+		List<String> textDataForProperTable = partList != null ? new ArrayList<String>(partList.get(0).keySet()) : null; // if
+																															// we
+																															// want
+																															// excel
+																															// table
 
 		int textDataCounter = 0;
 
@@ -180,13 +177,13 @@ public class EwayBillServiceImpl implements EwayBillService {
 			for (int j = 0; j < columnsWidth.size(); j++) {
 				if (partNo != null) {
 					if (j == 0) {
-						
+
 //						text =   partNo.stream()
 //				                .filter(rowInfo -> rowInfo.getSeq() == i)
 //				                .map(rowInfo::getKey)
 //				                .findFirst()
 //				                .orElse(null);
-						
+
 						text = (String) partNo.get(i).getKey();
 						font = PDType1Font.HELVETICA;
 						fontSize = 7.5f;
@@ -196,28 +193,26 @@ public class EwayBillServiceImpl implements EwayBillService {
 						fontSize = 8f;
 					}
 				}
-				
-				if(partList != null && i == 0) {
-					
-					
-					for(columnInfo item12 : columnsWidth) {
-						if(item12.getSeq() == j) {
+
+				if (partList != null && i == 0) {
+
+					for (columnInfo item12 : columnsWidth) {
+						if (item12.getSeq() == j) {
 							text = (String) item12.getColName();
 						}
 					}
-					
+
 //					text = (String) textDataForProperTable.get(j);
 					font = PDType1Font.HELVETICA_BOLD;
-					fontSize =  7f;
-				}
-				else if(partList != null && i != 0) {
-					
-					for(columnInfo item12 : columnsWidth) {
-						if(item12.getSeq() == j) {
-							text = partList.get(i-1).get(item12.getColName());
+					fontSize = 7f;
+				} else if (partList != null && i != 0) {
+
+					for (columnInfo item12 : columnsWidth) {
+						if (item12.getSeq() == j) {
+							text = partList.get(i - 1).get(item12.getColName());
 						}
 					}
-					
+
 //					text = partList.get(i-1).get(textDataForProperTable.get(j));
 					font = PDType1Font.HELVETICA;
 					fontSize = 7f;
@@ -272,13 +267,13 @@ public class EwayBillServiceImpl implements EwayBillService {
 						contentStreamValue.addRect(InitX, InitY, columnsWidth.get(l).getWidth(), -cellHeight);
 						InitX += columnsWidth.get(l).getWidth();
 
-						//draw broder for header
-						if(i==0 && isBOrder) {
-							contentStreamValue.setStrokingColor(Color.DARK_GRAY);
-						}
-						else {
-							contentStreamValue.setStrokingColor(Color.red);
-						}
+						// draw broder for header
+//						if (i == 0 && isBOrder) {
+//							contentStreamValue.setStrokingColor(Color.DARK_GRAY);
+//						} else {
+//							contentStreamValue.setStrokingColor(Color.red);
+//						}
+						contentStreamValue.setStrokingColor(1f);
 						contentStreamValue.setLineWidth(0.5f);
 						contentStreamValue.stroke();
 					}
@@ -292,28 +287,44 @@ public class EwayBillServiceImpl implements EwayBillService {
 //				contentStreamValue.stroke();
 
 			}
-		
-		
-			
-//			vertical column border -- should be done at the end or completion of table
-			if(i+1 == noOfRows && isBOrder) {
-				InitX = mainInitX;
-				InitY = mainInitY;
-				totalHeight += cellHeight;
-				for (int m = 0; m < columnsWidth.size(); m++) {
-					contentStreamValue.addRect(InitX, InitY, columnsWidth.get(m).getWidth(), -totalHeight);
-					InitX += columnsWidth.get(m).getWidth();
 
-					contentStreamValue.setStrokingColor(Color.DARK_GRAY);
-					contentStreamValue.setLineWidth(0.5f);
-					contentStreamValue.stroke();
-				}
-			}else {
+//			vertical column border -- should be done at the end or completion of table
+//			if(i+1 == noOfRows && isBOrder) {
+//				InitX = mainInitX;
+//				InitY = mainInitY;
+//				totalHeight += cellHeight;
+//				for (int m = 0; m < columnsWidth.size(); m++) {
+//					contentStreamValue.addRect(InitX, InitY, columnsWidth.get(m).getWidth(), -totalHeight);
+//					InitX += columnsWidth.get(m).getWidth();
+//
+//					contentStreamValue.setStrokingColor(Color.DARK_GRAY);
+//					contentStreamValue.setLineWidth(0.5f);
+//					contentStreamValue.stroke();
+//				}
+//			}else {
+//				InitX = mainInitX;
+//				InitY -= cellHeight;
+//				totalHeight += cellHeight;
+//			}
+
+//			Horizontal Row Header -- should be done at the end of every row
+			if (isBOrder) {
 				InitX = mainInitX;
-				InitY -= cellHeight;
-				totalHeight += cellHeight;
+				contentStreamValue.addRect(InitX, InitY, columnsWidth.stream().mapToInt(columnInfo::getWidth).sum(),
+						-cellHeight);
+
+				contentStreamValue.setStrokingColor(Color.DARK_GRAY);
+				contentStreamValue.setLineWidth(0.5f);
+				contentStreamValue.stroke();
+
 			}
-			
+
+			InitX = mainInitX;
+			InitY -= cellHeight;
+			totalHeight += cellHeight;
+
+
+
 //			Horizontal Row border
 //			if(isBOrder) {
 //				InitX = mainInitX;
@@ -332,11 +343,11 @@ public class EwayBillServiceImpl implements EwayBillService {
 //				InitY -= cellHeight;
 //				totalHeight += cellHeight;
 //			}
-			
+
 //			InitX = mainInitX;
 //			InitY -= cellHeight;
 //			totalHeight += cellHeight;
-			
+
 			cellHeight = 15; // initialize with starting value
 		}
 
@@ -367,19 +378,19 @@ public class EwayBillServiceImpl implements EwayBillService {
 //			}
 //		};
 
-		
 		this.part1 = new ArrayList<rowInfo>();
 		this.part1.add(new rowInfo("E-Way Bill No", "2013 0454 1660", 0));
 		this.part1.add(new rowInfo("E-Way Bill Date", "07/06/2021 01:12 PM", 1));
-		this.part1.add(new rowInfo("Generated By", "27AAD CC664 5D1ZS - CORNING TECHNOLOGIES INDIA PRIVATE LIMITED", 2));
+		this.part1
+				.add(new rowInfo("Generated By", "27AAD CC664 5D1ZS - CORNING TECHNOLOGIES INDIA PRIVATE LIMITED", 2));
 		this.part1.add(new rowInfo("Valid From", "07/06/2021 01:12 PM [723Kms]", 3));
 		this.part1.add(new rowInfo("Valid Until", "11/06/2021", 4));
 		this.part1.add(new rowInfo("IRN", "21e93e964919870e64947dd3206873954c804ca580501cc4dc3d8dc8f350f93b", 5));
-		
+
 		this.part1ColumnWidth = new ArrayList<columnInfo>();
-		this.part1ColumnWidth.add(new columnInfo(1,115,"first"));
-		this.part1ColumnWidth.add(new columnInfo(2, 412 - 115,"second"));
-		
+		this.part1ColumnWidth.add(new columnInfo(1, 115, "first"));
+		this.part1ColumnWidth.add(new columnInfo(2, 412 - 115, "second"));
+
 		// 2nd Section Part A
 //		this.part2A = new HashMap<>() {
 //			{
@@ -400,7 +411,8 @@ public class EwayBillServiceImpl implements EwayBillService {
 		this.part2A = new ArrayList<rowInfo>();
 		this.part2A.add(new rowInfo("GSTIN of Supplier", "27AADCC6645D1ZS,Corning Technologies India Pvt.Ltd", 0));
 		this.part2A.add(new rowInfo("Place of Dispatch", "Thane,MAHARASHTRA-421302", 1));
-		this.part2A.add(new rowInfo("GSTIN of Recipient", "36AAB CB382 2B1ZB ,BHARAT BIOTECH INTERNATIONAL LTD#15046002", 2));
+		this.part2A.add(
+				new rowInfo("GSTIN of Recipient", "36AAB CB382 2B1ZB ,BHARAT BIOTECH INTERNATIONAL LTD#15046002", 2));
 		this.part2A.add(new rowInfo("Place of Delivery", "HYDERABAD,TELANGANA-500078", 3));
 		this.part2A.add(new rowInfo("Document No", "IN2090I81742", 4));
 		this.part2A.add(new rowInfo("Document Date", "07/06/2021", 5));
@@ -409,13 +421,11 @@ public class EwayBillServiceImpl implements EwayBillService {
 		this.part2A.add(new rowInfo("HSN Code", "39269099 - CELLSTACK40-STACK2 SOLID CAP#7059", 8));
 		this.part2A.add(new rowInfo("Reason for Transportation", "Outward - Supply", 9));
 		this.part2A.add(new rowInfo("Transporter", "07AEKPG5291D1ZK & AGARWAL TRANSPORT ORGANISATION", 10));
-		
+
 		this.part2AColumnWidth = new ArrayList<columnInfo>();
-		this.part2AColumnWidth.add(new columnInfo(1,115,"first"));
-		this.part2AColumnWidth.add(new columnInfo(2, 412 - 115,"second"));
-		
-		
-		
+		this.part2AColumnWidth.add(new columnInfo(1, 115, "first"));
+		this.part2AColumnWidth.add(new columnInfo(2, 412 - 115, "second"));
+
 		// 3rd Section Part B
 		Map<String, String> map1 = new HashMap<>() {
 			{
@@ -439,20 +449,20 @@ public class EwayBillServiceImpl implements EwayBillService {
 				put("Multi Veh.Info (If any)", "testNum12345");
 			}
 		};
-		
+
 		this.part3B = new ArrayList<Map<String, String>>();
 		this.part3B.add(map1);
 		this.part3B.add(map2);
 
-		int columnsWidth2[] = { 30, 50,40,76,76,65,65 };
+		int columnsWidth2[] = { 30, 50, 40, 76, 76, 65, 65 };
 		this.part3BColumnWidth = new ArrayList<columnInfo>();
-		this.part3BColumnWidth.add(new columnInfo(0,30,"Mode"));
-		this.part3BColumnWidth.add(new columnInfo(1,50,"Vehicle / Trans Doc No & Dt."));
-		this.part3BColumnWidth.add(new columnInfo(2,40,"From"));
-		this.part3BColumnWidth.add(new columnInfo(3,76,"Entered Date"));
-		this.part3BColumnWidth.add(new columnInfo(4,76,"Entered By"));
-		this.part3BColumnWidth.add(new columnInfo(5,65,"CEWB No. (If any)"));
-		this.part3BColumnWidth.add(new columnInfo(6,65,"Multi Veh.Info (If any)"));
+		this.part3BColumnWidth.add(new columnInfo(0, 30, "Mode"));
+		this.part3BColumnWidth.add(new columnInfo(1, 50, "Vehicle / Trans Doc No & Dt."));
+		this.part3BColumnWidth.add(new columnInfo(2, 40, "From"));
+		this.part3BColumnWidth.add(new columnInfo(3, 76, "Entered Date"));
+		this.part3BColumnWidth.add(new columnInfo(4, 76, "Entered By"));
+		this.part3BColumnWidth.add(new columnInfo(5, 65, "CEWB No. (If any)"));
+		this.part3BColumnWidth.add(new columnInfo(6, 65, "Multi Veh.Info (If any)"));
 
 	}
 
