@@ -1,0 +1,10 @@
+{  
+  "cell":[  
+    {  
+      "cellNo":"1", "colSpan":"2f", "rowSpan":"4f"
+    },
+    {  
+      "cellNo":"2", "colSpan":"2f", "rowSpan":"4f"
+    }
+  ]
+}

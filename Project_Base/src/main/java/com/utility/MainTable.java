@@ -40,15 +40,35 @@ public class MainTable {
 		this.noOfCols = noOfCols;
 		this.noOfRows = noOfRows;
 		this.contentStream = contentStream;
-		this.singleRowSpan = tblHeight / noOfRows;
-		this.singleColSpan = tblWidth / noOfCols;
+		this.singleRowSpan = Float.valueOf(df.format(tblHeight / noOfRows));
+		this.singleColSpan = Float.valueOf(df.format(tblWidth / noOfCols));
 	}
 
 	public void drawTable() throws IOException {
 
 //		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\test.txt";
-		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\test2.txt";
-
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\test2.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simple1.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx2.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx3.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx4.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx5.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx6.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx7.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx8.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx9.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx10.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx11.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx12.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx13.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx14.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx15.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx16.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx17.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx18.txt";
+//		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx19.txt";
+		String JsonFilePath = "src\\\\\\\\\\\\\\\\main\\\\\\\\\\\\\\\\resources\\\\\\\\\\\\\\\\assets\\\\\\\\\\\\\\\\simpleEx20.txt";
+		
 		List<List<cellInfo>> cellDrawList = new ArrayList<List<cellInfo>>();
 
 		List<Map<String, String>> listOfCell = getCellJsonData(JsonFilePath);
@@ -57,7 +77,7 @@ public class MainTable {
 
 		if (listOfCell != null) {
 //			cellDrawList = this.calculateCellSeries(listOfCell, initX, initY, tblWidth, tblHeight);
-			cellDrawList = temp.calculateCellSeries(listOfCell, initX, initY, tblWidth, tblHeight, this.singleColSpan, this.singleRowSpan);
+			cellDrawList = temp.calculateCellSeries2(listOfCell, initX, initY, tblWidth, tblHeight, this.singleColSpan, this.singleRowSpan);
 		} else {
 			System.out.println("can't Draw table");
 		}

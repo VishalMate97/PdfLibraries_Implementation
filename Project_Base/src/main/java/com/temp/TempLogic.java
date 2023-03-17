@@ -37,7 +37,7 @@ public class TempLogic {
 //		contentStream.stroke();
 	
 ////		  com.utility.MainTable.MainTable(float initX, float initY, float tblWidth, float tblHeight, float noOfCols, float noOfRows, PDPageContentStream contentStream)
-		MainTable myTable = new MainTable(mainPageInitX, mainPageInitY, mainPageWidth, mainPageHeight, 4f, 7f, contentStream);
+		MainTable myTable = new MainTable(mainPageInitX, mainPageInitY, mainPageWidth, mainPageHeight, 5f, 4f, contentStream);
 		
 		myTable.drawTable();
 
